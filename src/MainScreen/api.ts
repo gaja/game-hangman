@@ -21,7 +21,52 @@ export interface QuoteResponse {
 }
 
 export const useQuote = () => {
-  // TODO: add API Schema Validation for Jokes response
+  // TODO: add API Schema Validation for response
+  const [data, setData] = useState<QuoteResponse>();
+  const [error, setError] = useState<Error>();
+  const [loading, setLoading] = useState(false);
+
+  let initialized = useRef(false).current;
+
+  useEffect(() => {
+    if (!initialized) {
+      initialized = true;
+
+      fetchQuote();
+    }
+  }, []);
+
+  const refetch = () => {
+    fetchQuote();
+  };
+
+  const fetchQuote = async () => {
+    setLoading(true);
+
+    try {
+      const quote = await getRiddle().then((res) => res.data);
+      setData(quote);
+    } catch (error) {
+      setError(error as Error);
+    }
+
+    setLoading(false);
+  };
+
+  return { loading, error, data, refetch };
+};
+
+interface SendResult {
+  quoteId: string;
+  length: number;
+  uniqueCharacters: number;
+  userName: string;
+  errors: number;
+  duration: number;
+}
+
+export const useScores = () => {
+  // TODO: add API Schema Validation for response
   const [data, setData] = useState<QuoteResponse>();
   const [error, setError] = useState<Error>();
   const [loading, setLoading] = useState(false);

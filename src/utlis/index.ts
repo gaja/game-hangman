@@ -26,3 +26,11 @@ export const guessNotIncludedInQuotes = ({ guess, quote }: { guess: string; quot
     guess,
   };
 };
+
+export const getUniqueCharactersLength = (quote: string) => {
+  if (!quote?.length) return 0;
+
+  return [...new Set(quote.split('').map((q) => q.toUpperCase()))].length;
+};
+
+export const calcTimeDelta = (time: { start: number; finish: number }) => time.finish - time.start;

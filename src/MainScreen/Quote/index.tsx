@@ -24,9 +24,9 @@ export function Quote() {
         <p>
             {quote}
         </p>
-        <p />
-        {maskedQuote}
-        <p />
+        <p>
+            {maskedQuote}
+        </p>
     </>
 }
 

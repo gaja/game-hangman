@@ -1,14 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { useQuote } from './api';
 
 import { Loader } from '../components/Loader';
+import { setGuess, setQuote, reset as resetQuotes } from './mainScreenSlice';
+
+import { Quote } from './Quote';
+import { Progress } from './Progress';
+
 
 function MainScreen() {
-  const [answer, setAnswer] = useState('');
-  const [guess, setGuess] = useState(new Map());
-
-  const [count, setCount] = useState(0);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     addEventListener('keydown', keyboardHandler);
@@ -16,20 +19,18 @@ function MainScreen() {
     return () => removeEventListener('keydown', keyboardHandler);
   }, []);
 
-  const keyboardHandler = (e: KeyboardEvent) => console.log(e.key);
-
-  const processGuess = () => {
-    return answer.split('').map((char) => (guess.has(char) ? char : '*'));
-  };
+  const keyboardHandler = (e: KeyboardEvent) => {
+    dispatch(setGuess(e.key))
+    console.log(e.key);
+  }
 
   const { loading, error, data, refetch } = useQuote();
 
-  if (count > 5) {
-    return <>Game over!</>;
-  }
+  dispatch(setQuote(data?.content))
 
   const reset = () => {
     refetch();
+    dispatch(resetQuotes())
   };
 
   if (loading) {
@@ -42,10 +43,12 @@ function MainScreen() {
 
   return (
     <>
-      {data?.content} *** {data?.author}
+      <Progress />
+      <Quote />
       <input type="submit" value="Reset" id="reset" onClick={reset} />
     </>
   );
 }
+
 
 export default MainScreen;

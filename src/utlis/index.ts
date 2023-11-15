@@ -12,6 +12,8 @@ export const maskQuote = (quote: string, guess: string, mask = '*') => {
 
   return quoteArray
     .map((quote) => {
+      if (quote === '.' || quote === ';' || quote === ',') return quote;
+
       return quote === ' ' ? ' ' : guessArray.includes(quote.toUpperCase()) ? quote : mask;
     })
     .join('');

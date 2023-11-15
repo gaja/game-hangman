@@ -24,7 +24,12 @@ function Header() {
 }
 
 function Footer() {
-  return <div className="footer">Footer</div>;
+  return <div className="footer">
+    <p>
+
+      ©GajaVitanovic - 00385 98 662 585
+    </p>
+  </div>;
 }
 
 export default Layout;

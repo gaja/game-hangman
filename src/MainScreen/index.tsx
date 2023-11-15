@@ -21,7 +21,6 @@ function MainScreen() {
 
   const keyboardHandler = (e: KeyboardEvent) => {
     dispatch(setGuess(e.key))
-    console.log(e.key);
   }
 
   const { loading, error, data, refetch } = useQuote();

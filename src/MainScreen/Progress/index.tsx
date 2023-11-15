@@ -8,7 +8,8 @@ export function Progress() {
     return <>
         <p>
             ({misses}/6)
-            <br />
+        </p>
+        <p>
             Missed letters: {missedChars}
         </p>
     </>

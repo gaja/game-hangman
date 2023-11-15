@@ -14,10 +14,22 @@ export function Quote() {
         setMaskedQuote(masked)
     }, [guess])
 
+    useEffect(() => {
+        if (!!maskedQuote.length && !maskedQuote.split('').includes('*')) {
+            finishGame()
+        }
+    }, [maskedQuote])
+
     return <>
-        {quote}
-        <br />
+        <p>
+            {quote}
+        </p>
+        <p />
         {maskedQuote}
-        <br />
+        <p />
     </>
+}
+
+function finishGame() {
+    console.log('game completed')
 }

@@ -7,9 +7,19 @@ interface InitialState {
   guess: string;
   misses: number;
   missedChars: string[];
+  time: {
+    start?: Date;
+    finish?: Date;
+  };
 }
 
-const initialState: InitialState = { quote: '', guess: '', misses: 0, missedChars: [] };
+const initialState: InitialState = {
+  quote: '',
+  guess: '',
+  misses: 0,
+  missedChars: [],
+  time: { start: undefined, finish: undefined },
+};
 
 const mainScreenSlice = createSlice({
   name: 'mainScreen',
@@ -32,8 +42,14 @@ const mainScreenSlice = createSlice({
       state.guess = state.guess + payload.toUpperCase();
     },
     reset: () => initialState,
+    setStartTime: (state) => {
+      state.time.start = new Date();
+    },
+    setFinishTime: (state) => {
+      state.time.finish = new Date();
+    },
   },
 });
 
-export const { setQuote, setGuess, reset } = mainScreenSlice.actions;
+export const { setQuote, setGuess, reset, setStartTime, setFinishTime } = mainScreenSlice.actions;
 export default mainScreenSlice.reducer;

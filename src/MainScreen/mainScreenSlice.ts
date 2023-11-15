@@ -1,24 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { guessNotIncludedInQuotes, isDuplicate, isString } from '../utlis';
+import { QuoteResponse } from './api';
 
 interface InitialState {
   quote: string;
+  quoteData: QuoteResponse | {};
   guess: string;
   misses: number;
   missedChars: string[];
   time: {
-    start?: Date;
-    finish?: Date;
+    start: number;
+    finish: number;
   };
 }
 
 const initialState: InitialState = {
   quote: '',
+  quoteData: {},
   guess: '',
   misses: 0,
   missedChars: [],
-  time: { start: undefined, finish: undefined },
+  time: { start: 0, finish: 0 },
 };
 
 const mainScreenSlice = createSlice({
@@ -27,6 +30,9 @@ const mainScreenSlice = createSlice({
   reducers: {
     setQuote: (state, { payload }) => {
       state.quote = payload;
+    },
+    setQuoteData: (state, { payload }) => {
+      state.quoteData = payload;
     },
     setGuess: (state, { payload }) => {
       const shouldAddToGuess = !isString(payload) || isDuplicate(state.guess, payload);
@@ -43,13 +49,14 @@ const mainScreenSlice = createSlice({
     },
     reset: () => initialState,
     setStartTime: (state) => {
-      state.time.start = new Date();
+      state.time.start = new Date().getTime();
     },
     setFinishTime: (state) => {
-      state.time.finish = new Date();
+      state.time.start = state.time.start;
+      state.time.finish = new Date().getTime();
     },
   },
 });
 
-export const { setQuote, setGuess, reset, setStartTime, setFinishTime } = mainScreenSlice.actions;
+export const { setQuote, setGuess, reset, setStartTime, setFinishTime, setQuoteData } = mainScreenSlice.actions;
 export default mainScreenSlice.reducer;

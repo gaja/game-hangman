@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useQuote } from './api';
 
 import { Loader } from '../components/Loader';
-import { setGuess, setQuote, reset as resetQuotes } from './mainScreenSlice';
+import { setGuess, setQuote, reset as resetQuotes, setQuoteData, setStartTime } from './mainScreenSlice';
 
 import { Quote } from './Quote';
 import { Progress } from './Progress';
@@ -12,6 +12,8 @@ import { Progress } from './Progress';
 
 function MainScreen() {
   const dispatch = useDispatch();
+
+  const { loading, error, data, refetch } = useQuote();
 
   useEffect(() => {
     addEventListener('keydown', keyboardHandler);
@@ -23,13 +25,14 @@ function MainScreen() {
     dispatch(setGuess(e.key))
   }
 
-  const { loading, error, data, refetch } = useQuote();
-
+  // TODO: refactor. setQuote is not needed anymore
   dispatch(setQuote(data?.content))
+  dispatch(setQuoteData(data))
 
   const reset = () => {
     refetch();
     dispatch(resetQuotes())
+    dispatch(setStartTime())
   };
 
   if (loading) {

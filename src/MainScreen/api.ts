@@ -9,7 +9,7 @@ const API = axios.create({
 
 const getRiddle = (link: string = 'random') => API.get(link);
 
-interface QuoteResponse {
+export interface QuoteResponse {
   _id: string;
   content: string;
   author: string;

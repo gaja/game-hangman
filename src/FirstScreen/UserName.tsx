@@ -2,6 +2,7 @@ import { KeyboardEvent, ChangeEvent, useState } from 'react';
 import { setUserName } from './usernameSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { setStartTime } from '../MainScreen/mainScreenSlice';
 
 export function UserName() {
   const nav = useNavigate();
@@ -16,6 +17,7 @@ export function UserName() {
     if (e.key === 'Enter') {
       if (uname.length) {
         dispatch(setUserName(uname));
+        dispatch(setStartTime());
         nav('/');
       }
     }

@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../store"
 import { useEffect, useState } from "react"
 import { maskQuote } from "../../utlis"
-import { setFinishTime } from "../mainScreenSlice"
+import { setFailedGame, setFinishTime } from "../mainScreenSlice"
+import { max_misses } from "../../constants"
 
 export function Quote() {
-    const DEFAULT_BLUR = 'blur(4px)'
     const dispatch = useDispatch()
+    const DEFAULT_BLUR = 'blur(4px)'
+    const misses = useSelector((state: RootState) => state.mainScreen.misses)
 
     const quote = useSelector((state: RootState) => state.mainScreen.quote)
     const guess = useSelector((state: RootState) => state.mainScreen.guess)
@@ -22,10 +24,17 @@ export function Quote() {
 
     useEffect(() => {
         if (!!maskedQuote.length && !maskedQuote.split('').includes('*')) {
-            finishGame()
+            console.log('game completed')
+
             dispatch(setFinishTime())
         }
-    }, [maskedQuote])
+        if (misses >= max_misses) {
+            console.log('fail')
+            dispatch(setFailedGame())
+            alert('You loose!')
+
+        }
+    }, [misses, maskQuote])
 
     const toggleBlur = () => {
         blur === DEFAULT_BLUR ? setBlur('blur(0px)') : setBlur(DEFAULT_BLUR)
@@ -43,8 +52,4 @@ export function Quote() {
             {maskedQuote}
         </p>
     </>
-}
-
-function finishGame() {
-    console.log('game completed')
 }

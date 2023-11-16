@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux"
 import { RootState } from "../../store"
+import { max_misses } from "../../constants"
 
 export function Progress() {
     const misses = useSelector((state: RootState) => state.mainScreen.misses)
@@ -7,7 +8,7 @@ export function Progress() {
 
     return <>
         <p>
-            ({misses}/6)
+            ({misses}/{max_misses})
         </p>
         <p>
             Missed letters: {missedChars}

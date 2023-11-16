@@ -13,6 +13,7 @@ interface InitialState {
     start: number;
     finish: number;
   };
+  isFail: boolean;
 }
 
 const initialState: InitialState = {
@@ -22,6 +23,7 @@ const initialState: InitialState = {
   misses: 0,
   missedChars: [],
   time: { start: 0, finish: 0 },
+  isFail: false,
 };
 
 const mainScreenSlice = createSlice({
@@ -55,8 +57,12 @@ const mainScreenSlice = createSlice({
       state.time.start = state.time.start;
       state.time.finish = new Date().getTime();
     },
+    setFailedGame: (state) => {
+      state.isFail = true;
+    },
   },
 });
 
-export const { setQuote, setGuess, reset, setStartTime, setFinishTime, setQuoteData } = mainScreenSlice.actions;
+export const { setQuote, setGuess, reset, setStartTime, setFinishTime, setQuoteData, setFailedGame } =
+  mainScreenSlice.actions;
 export default mainScreenSlice.reducer;

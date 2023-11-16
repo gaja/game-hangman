@@ -4,14 +4,16 @@ import { useSelector } from 'react-redux';
 
 import { RootState } from '../store';
 
-import './index.module.css';
+import classes from './index.module.css';
 
 export function Layout() {
   return (
-    <div className="container">
+    <div className={classes.container}>
       <Header />
       <Suspense fallback={<div>Loading...</div>}>
-        <Outlet />
+        <div className={classes.main}>
+          <Outlet />
+        </div>
       </Suspense>
       <Footer />
     </div>
@@ -20,11 +22,11 @@ export function Layout() {
 
 function Header() {
   const uname = useSelector((state: RootState) => state.username.userName);
-  return <div className="header">Hello {uname}</div>;
+  return <div className={classes.header}>Hello {uname}</div>;
 }
 
 function Footer() {
-  return <div className="footer">
+  return <div className={classes.footer}>
     <p>
 
       ©GajaVitanovic - 00385 98 662 585

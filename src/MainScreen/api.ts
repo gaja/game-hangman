@@ -1,13 +1,27 @@
 import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 
-import { APIBaseUrlQuotes as baseURL } from '../constants';
+import { APIBaseUrlResults, APIBaseUrlQuotes as baseURL } from '../constants';
+import { useDispatch } from 'react-redux';
+import { setQuote, setQuoteData } from './mainScreenSlice';
 
 const API = axios.create({
   baseURL,
 });
 
+const APIResults = axios.create({
+  baseURL: APIBaseUrlResults,
+});
+
+// Quotes
 const getRiddle = (link: string = 'random') => API.get(link);
+
+// Highscores
+const sendResults = (data: SendResult) =>
+  APIResults.post('highscores', data)
+    .then((res) => res)
+    .catch((e) => e as Error);
+const getResults = (link: string = 'highscores') => APIResults.get(link);
 
 export interface QuoteResponse {
   _id: string;
@@ -21,6 +35,7 @@ export interface QuoteResponse {
 }
 
 export const useQuote = () => {
+  const dispatch = useDispatch();
   // TODO: add API Schema Validation for response
   const [data, setData] = useState<QuoteResponse>();
   const [error, setError] = useState<Error>();
@@ -45,6 +60,10 @@ export const useQuote = () => {
 
     try {
       const quote = await getRiddle().then((res) => res.data);
+
+      dispatch(setQuote(quote?.content));
+      dispatch(setQuoteData(quote));
+
       setData(quote);
     } catch (error) {
       setError(error as Error);
@@ -67,7 +86,7 @@ interface SendResult {
 
 export const useScores = () => {
   // TODO: add API Schema Validation for response
-  const [data, setData] = useState<QuoteResponse>();
+  const [data, setData] = useState({});
   const [error, setError] = useState<Error>();
   const [loading, setLoading] = useState(false);
 
@@ -77,20 +96,20 @@ export const useScores = () => {
     if (!initialized) {
       initialized = true;
 
-      fetchQuote();
+      sendResults();
     }
   }, []);
 
   const refetch = () => {
-    fetchQuote();
+    sendResults();
   };
 
-  const fetchQuote = async () => {
+  const sendResults = async () => {
     setLoading(true);
 
     try {
-      const quote = await getRiddle().then((res) => res.data);
-      setData(quote);
+      const results = await sendResults().then(() => getResults());
+      setData(results);
     } catch (error) {
       setError(error as Error);
     }

@@ -12,9 +12,19 @@ export const maskQuote = (quote: string, guess: string, mask = '*') => {
 
   return quoteArray
     .map((quote) => {
-      if (quote === '.' || quote === ';' || quote === ',') return quote;
+      if (
+        quote === ' ' ||
+        quote === '.' ||
+        quote === ';' ||
+        quote === ',' ||
+        quote === "'" ||
+        quote === '?' ||
+        quote === '—' ||
+        quote === '-'
+      )
+        return quote;
 
-      return quote === ' ' ? ' ' : guessArray.includes(quote.toUpperCase()) ? quote : mask;
+      return guessArray.includes(quote.toUpperCase()) ? quote : mask;
     })
     .join('');
 };
@@ -33,4 +43,5 @@ export const getUniqueCharactersLength = (quote: string) => {
   return [...new Set(quote.split('').map((q) => q.toUpperCase()))].length;
 };
 
-export const calcTimeDelta = (time: { start: number; finish: number }) => time.finish - time.start;
+export const calcTimeDelta = (time: { start: number; finish: number }) =>
+  time.finish === 0 || time.start === 0 ? 0 : time.finish - time.start;

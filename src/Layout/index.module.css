@@ -1,7 +1,13 @@
-.container {}
+.container {margin: 0; padding: 0;}
 
-.header {}
+.header {
+    height: 20%
+}
 
-.footer {}
+.main {
+    height: 80%;
+}
 
-.body {}
+.footer {
+    height: 20%
+}

@@ -1,0 +1,13 @@
+.container {
+    background: black;
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100wh;
+    align-items: center;
+}
+
+.username {
+    padding: 1rem;
+    border: 1px solid black;
+}

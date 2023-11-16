@@ -13,6 +13,8 @@ const Layout = lazy(() => import('./Layout'));
 const MainScreen = lazy(() => import('./MainScreen'));
 const UserName = lazy(() => import('./FirstScreen/UserName'));
 
+import './index.css'
+
 const router = createBrowserRouter([
   {
     path: '/username',

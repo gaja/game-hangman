@@ -39,7 +39,7 @@ export function Quote({ loading }: Quote) {
             alert('You loose!')
 
         }
-    }, [misses, maskQuote])
+    }, [misses, maskedQuote])
 
     const toggleBlur = () => {
         blur === DEFAULT_BLUR ? setBlur('blur(0px)') : setBlur(DEFAULT_BLUR)

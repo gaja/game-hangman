@@ -1,3 +1,7 @@
+:root {
+  --padding: 1rem;
+}
+
 .container {
     min-height: 100vh;
     display: grid; 
@@ -9,6 +13,6 @@
       "main main main"
       "footer footer footer"; 
   }
-  .header { grid-area: header; }
+  .header { grid-area: header; padding: var(--padding); }
   .main { grid-area: main; }
-  .footer { grid-area: footer; }
+  .footer { grid-area: footer; padding: var(--padding);}

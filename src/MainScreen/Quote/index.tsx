@@ -46,7 +46,7 @@ export function Quote({ loading }: Quote) {
     }
 
     if (loading) {
-        <Loader />
+        return <Loader style={{ minHeight: "200px" }} />
     }
 
     return <div style={{ minHeight: "200px" }}>

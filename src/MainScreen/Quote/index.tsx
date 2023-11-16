@@ -5,8 +5,13 @@ import { useEffect, useState } from "react"
 import { maskQuote } from "../../utlis"
 import { setFailedGame, setFinishTime } from "../mainScreenSlice"
 import { max_misses } from "../../constants"
+import { Loader } from "../../components/Loader"
 
-export function Quote() {
+interface Quote {
+    loading: boolean
+}
+
+export function Quote({ loading }: Quote) {
     const dispatch = useDispatch()
     const DEFAULT_BLUR = 'blur(4px)'
     const misses = useSelector((state: RootState) => state.mainScreen.misses)
@@ -20,7 +25,7 @@ export function Quote() {
     useEffect(() => {
         const masked = maskQuote(quote, guess)
         setMaskedQuote(masked)
-    }, [guess])
+    }, [guess, quote])
 
     useEffect(() => {
         if (!!maskedQuote.length && !maskedQuote.split('').includes('*')) {
@@ -40,7 +45,11 @@ export function Quote() {
         blur === DEFAULT_BLUR ? setBlur('blur(0px)') : setBlur(DEFAULT_BLUR)
     }
 
-    return <>
+    if (loading) {
+        <Loader />
+    }
+
+    return <div style={{ minHeight: "200px" }}>
         <p style={{
             filter: `${blur}`,
             cursor: "pointer",
@@ -51,5 +60,5 @@ export function Quote() {
         <p>
             {maskedQuote}
         </p>
-    </>
+    </div>
 }

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { useQuote } from './api';
 
-import { Loader } from '../components/Loader';
 import { setGuess, reset as resetQuotes, setStartTime } from './mainScreenSlice';
 
 import { Quote } from './Quote';
@@ -45,10 +44,6 @@ function MainScreen() {
     console.clear()
   };
 
-  if (loading) {
-    return <Loader />;
-  }
-
   if (error?.message) {
     console.error(error);
   }
@@ -56,7 +51,7 @@ function MainScreen() {
   return (
     <div className="mainScreen">
       <Progress />
-      <Quote />
+      <Quote loading={loading} />
       <input type="submit" value="Reset" id="reset" onClick={reset} />
     </div>
   );

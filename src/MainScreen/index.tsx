@@ -9,6 +9,7 @@ import { setGuess, reset as resetQuotes, setStartTime } from './mainScreenSlice'
 import { Quote } from './Quote';
 import { Progress } from './Progress';
 
+// @ts-ignore
 import useSound from 'use-sound';
 import soundKey from '/sound/key.mp3'
 import guitarRiff from '/sound/bt_riff.mp3'

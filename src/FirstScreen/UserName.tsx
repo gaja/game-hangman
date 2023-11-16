@@ -3,6 +3,7 @@ import { setUserName } from './usernameSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setStartTime } from '../MainScreen/mainScreenSlice';
+// @ts-ignore
 import useSound from 'use-sound';
 
 import audioIntro from '/sound/intro.mp3'

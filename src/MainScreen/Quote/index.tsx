@@ -6,10 +6,14 @@ import { maskQuote } from "../../utlis"
 import { setFinishTime } from "../mainScreenSlice"
 
 export function Quote() {
+    const DEFAULT_BLUR = 'blur(4px)'
     const dispatch = useDispatch()
-    const [maskedQuote, setMaskedQuote] = useState('')
+
     const quote = useSelector((state: RootState) => state.mainScreen.quote)
     const guess = useSelector((state: RootState) => state.mainScreen.guess)
+
+    const [maskedQuote, setMaskedQuote] = useState('')
+    const [blur, setBlur] = useState(DEFAULT_BLUR)
 
     useEffect(() => {
         const masked = maskQuote(quote, guess)
@@ -23,10 +27,18 @@ export function Quote() {
         }
     }, [maskedQuote])
 
+    const toggleBlur = () => {
+        blur === DEFAULT_BLUR ? setBlur('blur(0px)') : setBlur(DEFAULT_BLUR)
+    }
+
     return <>
-        <p>
+        <p style={{
+            filter: `${blur}`,
+            cursor: "pointer",
+        }}
+            onClick={toggleBlur}>
             {quote}
-        </p>
+        </p >
         <p>
             {maskedQuote}
         </p>

@@ -29,8 +29,8 @@ function MainScreen() {
   }, []);
 
   const keyboardHandler = (e: KeyboardEvent) => {
-    dispatch(setGuess(e.key))
     play()
+    dispatch(setGuess(e.key))
   }
 
   const reset = () => {

@@ -1,13 +1,14 @@
-.container {margin: 0; padding: 0;}
-
-.header {
-    height: 20%
-}
-
-.main {
-    height: 80%;
-}
-
-.footer {
-    height: 20%
-}
+.container {
+    min-height: 100vh;
+    display: grid; 
+    grid-template-columns: 1fr 1fr 1fr; 
+    grid-template-rows: 0.5fr 2.2fr 0.3fr; 
+    gap: 0px 0px; 
+    grid-template-areas: 
+      "header header header"
+      "main main main"
+      "footer footer footer"; 
+  }
+  .header { grid-area: header; }
+  .main { grid-area: main; }
+  .footer { grid-area: footer; }

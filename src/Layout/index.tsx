@@ -29,7 +29,7 @@ function Footer() {
   return <div className={classes.footer}>
     <p>
 
-      ©GajaVitanovic - 00385 98 662 585
+      ©GajaVitanovic - <a href="tel:00385 98 662 585">00385 98 662 585</a>
     </p>
   </div>;
 }

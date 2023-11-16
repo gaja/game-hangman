@@ -236,3 +236,15 @@ export const highscoreResponse = [
     duration: 88896,
   },
 ];
+
+export const quotesResponse = {
+  _id: 'rF6UYZ9W4T',
+  content:
+    'False friendship, like the ivy, decays and ruins the walls it embraces; but true friendship gives new life and animation to the object it supports.',
+  author: 'Richard Burton',
+  tags: ['Friendship'],
+  authorSlug: 'richard-burton',
+  length: 147,
+  dateAdded: '2019-12-14',
+  dateModified: '2023-04-14',
+};

@@ -6,5 +6,5 @@ import { RootState } from '../store';
 export const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const user = useSelector((state: RootState) => state.username.userName);
 
-  return !user ? <Navigate to={'username'} replace /> : children;
+  return !user ? <Navigate to={'/username'} replace /> : children;
 };

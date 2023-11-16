@@ -5,7 +5,7 @@ import { QuoteResponse } from './api';
 
 interface InitialState {
   quote: string;
-  quoteData: QuoteResponse | {};
+  quoteData: QuoteResponse;
   guess: string;
   misses: number;
   missedChars: string[];
@@ -18,7 +18,16 @@ interface InitialState {
 
 const initialState: InitialState = {
   quote: '',
-  quoteData: {},
+  quoteData: {
+    _id: '',
+    content: '',
+    author: '',
+    tags: [],
+    authorSlug: '',
+    length: 0,
+    dateAdded: '',
+    dateModified: '',
+  },
   guess: '',
   misses: 0,
   missedChars: [],

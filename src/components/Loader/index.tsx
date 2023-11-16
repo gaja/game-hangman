@@ -1,7 +1,7 @@
 import { CSSProperties } from "react";
 
 interface Loader {
-  style: CSSProperties
+  style?: CSSProperties
   props?: unknown
 }
 

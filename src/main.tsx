@@ -14,13 +14,9 @@ const MainScreen = lazy(() => import('./MainScreen'));
 const UserName = lazy(() => import('./FirstScreen/UserName'));
 
 import './index.css'
+import { Results } from './Results/index.tsx';
 
 const router = createBrowserRouter([
-  {
-    path: '/username',
-    element: <UserName />,
-    errorElement: <Error />,
-  },
   {
     element: <Layout />,
     errorElement: <Error />,
@@ -34,7 +30,22 @@ const router = createBrowserRouter([
         ),
         errorElement: <Error />,
       },
+      {
+        path: '/results',
+        element: (
+          <ProtectedRoute>
+            <Results />
+          </ProtectedRoute>
+        ),
+        errorElement: <Error />,
+      },
     ],
+  },
+  {
+    path: '/username',
+    index: true,
+    element: <UserName />,
+    errorElement: <Error />,
   },
 ]);
 

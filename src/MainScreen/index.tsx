@@ -13,6 +13,7 @@ import useSound from 'use-sound';
 import soundKey from '/sound/key.mp3'
 import guitarRiff from '/sound/bt_riff.mp3'
 import { RootState } from '../store';
+import { Error } from '../ErrorScreen';
 
 function MainScreen() {
   const [play] = useSound(soundKey);
@@ -45,13 +46,14 @@ function MainScreen() {
   };
 
   if (error?.message) {
-    console.error(error);
+    return <Error />
   }
 
   return (
     <div className="mainScreen">
       <Progress />
       <Quote loading={loading} />
+
       <input type="submit" value="Reset" id="reset" onClick={reset} />
     </div>
   );

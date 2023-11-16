@@ -4,14 +4,16 @@ import { RootState } from "../../store"
 import { useEffect, useState } from "react"
 import { maskQuote } from "../../utlis"
 import { setFailedGame, setFinishTime } from "../mainScreenSlice"
-import { max_misses } from "../../constants"
+import { CSS_min_height, max_misses } from "../../constants"
 import { Loader } from "../../components/Loader"
+import { useNavigate } from "react-router-dom"
 
 interface Quote {
     loading: boolean
 }
 
 export function Quote({ loading }: Quote) {
+    const nav = useNavigate()
     const dispatch = useDispatch()
     const DEFAULT_BLUR = 'blur(4px)'
     const misses = useSelector((state: RootState) => state.mainScreen.misses)
@@ -32,6 +34,8 @@ export function Quote({ loading }: Quote) {
             console.log('game completed')
 
             dispatch(setFinishTime())
+
+            nav("/results")
         }
         if (misses >= max_misses) {
             console.log('fail')
@@ -46,10 +50,10 @@ export function Quote({ loading }: Quote) {
     }
 
     if (loading) {
-        return <Loader style={{ minHeight: "200px" }} />
+        return <Loader style={{ minHeight: CSS_min_height }} />
     }
 
-    return <div style={{ minHeight: "200px" }}>
+    return <div style={{ minHeight: CSS_min_height }}>
         <p style={{
             filter: `${blur}`,
             cursor: "pointer",

@@ -11,7 +11,7 @@ export function Progress() {
             ({misses}/{max_misses})
         </p>
         <p>
-            Missed letters: {missedChars}
+            Missed letters: {missedChars || '-'}
         </p>
     </>
 }

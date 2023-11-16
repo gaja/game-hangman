@@ -23,7 +23,7 @@ const APISendResults = (data: SendResult) =>
   APIResults.post('highscores', data)
     .then((res) => res)
     .catch((e) => e as Error);
-const APIGetResults = (link: string = 'highscores') => APIResults.get(link);
+const APIGetResults = (link: string = 'highscores') => APIResults.get(link).then((res) => res.data);
 
 export interface QuoteResponse {
   _id: string;
@@ -88,7 +88,7 @@ interface SendResult {
 
 export const useScores = () => {
   // TODO: add API Schema Validation for response
-  const [data, setData] = useState({});
+  const [data, setData] = useState<SendResult>();
   const [error, setError] = useState<Error>();
   const [loading, setLoading] = useState(false);
 
@@ -128,7 +128,7 @@ export const useScores = () => {
     setLoading(true);
 
     try {
-      const results = await APISendResults(sendData).then(() => APIGetResults());
+      const results = (await APISendResults(sendData).then(() => APIGetResults())) as SendResult;
       setData(results);
     } catch (error) {
       setError(error as Error);

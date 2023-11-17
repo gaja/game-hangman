@@ -8,7 +8,7 @@ import './index.css'
 export function Results() {
     const { data, loading, error } = useScores()
 
-    const renderData = prepareHighscoreData(data)
+    const renderData = prepareHighscoreData(data as any)
 
     if (loading) {
         return <Loader />
@@ -25,7 +25,7 @@ export function Results() {
                     HIGHSCORES:
                 </h3>
                 {
-                    renderData?.map(rd => <p className="tab">{rd?.userName} {rd?.score}</p>)
+                    renderData?.map(rd => <p key={rd.id} className="tab">{rd?.userName} {rd?.score}</p>)
                 }
             </div>
         </>

@@ -48,8 +48,12 @@ export const calcTimeDelta = (time: { start: number; finish: number }) =>
 
 export const prepareHighscoreData = (highscores: Record<string, unknown>[]) =>
   highscores
-    ?.map((hs) => ({ userName: hs?.userName, score: getHighscore(hs?.errors).toFixed(0) }))
-    .sort((a, b) => b.score - a.score)
+    ?.map((hs) => ({
+      userName: hs?.userName as string,
+      score: Number(getHighscore(hs?.errors as number).toFixed(0)),
+      id: hs.id as number,
+    }))
+    .sort((a: any, b: any) => b.score - a.score)
     .slice(0, 10);
 
 export const getHighscore = (errors: number) => 100 / (1 + errors);
